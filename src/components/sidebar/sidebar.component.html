@@ -7,7 +7,7 @@
           <!--<app-search [childValue]="parentValue" (childValueChange)="reactToChildValueChange($event)"/>-->
           <!--<app-search [childValue]="parentValue" (childValueChange)="parentValue = $event"/>-->
           <app-search [(childValue)]="parentValue"/>
-          parentValue : {{parentValue}}
+          parentValue : {{parentValue | truncate:50:" *****"}}
         </section>
 
       <!-- Menu -->
@@ -51,15 +51,28 @@
             <h2>Ante interdum</h2>
           </header>
           <div class="mini-posts">
-            <app-mini-post [post]="minipost1"/>
-            <article>
-              <a href="#" class="image"><img src="assets/images/pic08.jpg" alt="" /></a>
-              <p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore aliquam.</p>
-            </article>
-            <article>
-              <a href="#" class="image"><img src="assets/images/pic09.jpg" alt="" /></a>
-              <p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore aliquam.</p>
-            </article>
+            @for (minipost of miniposts; track position;
+               let position = $index;
+               let  premier = $first;
+               let dernier = $last;
+               let pair = $even;
+               let impair = $odd) {
+                @if (minipost.src; as source) {
+                  @if(premier){<p>Premier element</p>}
+                  <app-mini-post [first]="premier" [post]="minipost"/>
+                  post.src : {{source}}
+                  @if(dernier) {<p>Dernier element</p>}
+                }
+                @else if(minipost.src === undefined){
+                  <p>Article sans image</p>
+                }
+                @else {
+                  <p>Source d'image vide</p>
+                }
+            } 
+            @empty {
+              <p>Aucun élément dans la collection</p>
+            }
           </div>
           <ul class="actions">
             <li><button (click)="askForMore()" class="button">More</button></li>

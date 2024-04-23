@@ -1,0 +1,14 @@
+<form (submit)="onSubmit(form.checkValidity())" #form>
+    <label> Email : 
+        <input [(ngModel)]="credentials.email" type="email" name="email" required #emailInput/>
+        <app-error-message [displayed]="!emailInput.checkValidity()">L'email est invalide</app-error-message>
+    </label>
+    <label> Password :
+        <input [(ngModel)]="credentials.password" type="password" name="password" required minlength="6" #passInput/>
+        <app-error-message [displayed]="!passInput.checkValidity()">Le mot de passe est invalide</app-error-message>
+    </label>
+    <input type="checkbox" id="remember"/>
+    <label for="remember">Remember Me</label>
+    <br/>
+    <button [disabled]="!form.checkValidity()">Connexion</button>
+</form>

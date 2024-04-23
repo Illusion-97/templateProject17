@@ -15,11 +15,13 @@ export class MiniPostComponent {
     alt: 'Halte',
     text: 'Lorem'
   }
+
+  @Input() first: boolean = false
 }
 
 export interface MiniPost { // Définir la structure d'un MiniPost
   href: string
-  src: string
+  src?: string // equivalent -> src: string | undefined
   alt: string
   text: string
 }

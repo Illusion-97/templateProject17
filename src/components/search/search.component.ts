@@ -1,10 +1,11 @@
+import { DatePipe } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-search',
   standalone: true,
-  imports: [FormsModule], // FormsModule permet l'utilisation de 'ngModel'
+  imports: [FormsModule, DatePipe], // FormsModule permet l'utilisation de 'ngModel'
   templateUrl: './search.component.html',
   styleUrl: './search.component.css'
 })
@@ -24,6 +25,8 @@ export class SearchComponent {
     this.childValue = value;
     this.childValueChange.emit(this.childValue)
   }
+
+  today: Date = new Date()
 
   onValueChange($event: Event) {
 

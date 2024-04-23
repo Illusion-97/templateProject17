@@ -1,13 +1,14 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { MiniPost, MiniPostComponent } from "../mini-post/mini-post.component";
 import { SearchComponent } from "../search/search.component";
+import { TruncatePipe } from '../../pipes/truncate.pipe';
 
 @Component({
     selector: 'app-sidebar',
     standalone: true,
     templateUrl: './sidebar.component.html',
     styleUrl: './sidebar.component.css',
-    imports: [MiniPostComponent, SearchComponent]
+    imports: [MiniPostComponent, SearchComponent, TruncatePipe]
 })
 export class SidebarComponent {
     @Output() // Prépare le composant à ENVOYER une information au parent (composant qui apelle celui-ci)
@@ -21,6 +22,33 @@ export class SidebarComponent {
         alt: 'Halte',
         text: 'Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore aliquam.'
     }
+
+    miniposts: MiniPost[] = [
+        {
+            href: '#',
+            src: 'pic07.jpg',
+            alt: 'Halte',
+            text: 'Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore aliquam.'
+        },
+        {
+            href: '#',
+            alt: 'Halte',
+            text: 'Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore aliquam.'
+        },
+        {
+            href: '#',
+            src: '',
+            alt: 'Halte',
+            text: 'Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore aliquam.'
+        },
+        this.minipost1,
+        {
+            href: '#',
+            src: 'pic09.jpg',
+            alt: 'Halte',
+            text: 'Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore aliquam.'
+        }
+    ]
 
     askForMore() {
         this.ask.emit("I want More !") // Déclenche effectivement un evenement au travers de l'emitter

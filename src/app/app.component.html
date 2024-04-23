@@ -7,7 +7,9 @@
           <div class="inner">
 
             <!-- Header -->
-              <app-header/>
+              <app-header [titre]="title | uppercase"/>
+
+              <app-register/>
 
               <app-home/>
           </div>
@@ -15,5 +17,4 @@
 
       <!-- Sidebar -->
         <app-sidebar (ask)="reactToChild($event)"/>
-
     </div>
