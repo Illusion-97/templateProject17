@@ -8,10 +8,8 @@
 
             <!-- Header -->
               <app-header [titre]="title | uppercase"/>
-
-              <app-register/>
-
-              <app-home/>
+              <!--router-outlet définis un emplacement EN DESSOUS duquel vont se placer des composants gérés par le Router-->
+              <router-outlet/>
           </div>
         </div>
 

@@ -59,7 +59,7 @@
       <h2>Ipsum sed dolor</h2>
     </header>
     <div class="posts">
-      @for (article of data; track article) {
+      @for (article of data | async; track article) {
         @if(article.src){
           <article>
             <a [href]="article.lien" class="image"><img src="assets/images/{{article.src}}" [alt]="article.src" /></a>

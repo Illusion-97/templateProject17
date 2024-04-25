@@ -1,0 +1,22 @@
+<form (submit)="onSubmit()" [formGroup]="form">
+    <label> Titre :
+      <input formControlName="titre" [class.invalid]="isInvalid('titre')" type="text" name="titre">
+      <app-error-message [displayed]="hasError('titre','required')">Le titre est requis</app-error-message>
+    </label>
+    <label> Image Src :
+      <input formControlName="src" type="text" name="src">
+    </label>
+    <label> Image Alt :
+      <input formControlName="alt" [class.invalid]="isInvalid('alt')" type="text" name="alt">
+      <app-error-message [displayed]="hasError('alt','required')">Le texte alternatif est requis</app-error-message>
+    </label>
+    <label> Lien :
+      <input formControlName="lien" [class.invalid]="isInvalid('lien')" type="text" name="lien">
+      <app-error-message [displayed]="hasError('lien','required')">Le lien est requis</app-error-message>
+    </label>
+    <label> Description :
+      <textarea formControlName="description" [class.invalid]="isInvalid('description')" name="description"></textarea>
+      <app-error-message [displayed]="hasError('description','required')">La description est requise</app-error-message>
+    </label>
+    <button [disabled]="form.invalid">Enregister</button>
+  </form>

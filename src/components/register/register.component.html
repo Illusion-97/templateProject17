@@ -1,18 +1,25 @@
 <form [formGroup]="form" (submit)="onSubmit()">
     <label> Username :
-        <input formControlName="username" type="text"/>
+        <input [class.invalid]="isInvalid('username')" formControlName="username" type="text"/>
+        <app-error-message [displayed]="hasError('username', 'required')">Le nom d'utilisateur est requis</app-error-message>
+        <app-error-message [displayed]="hasError('username', 'maxlength')">Le nom d'utilisateur doit faire au maximum 15 caractères</app-error-message>
     </label>
     <label> Email :
-        <input  formControlName="email" type="email"/>
+        <input [class.invalid]="isInvalid('email')" formControlName="email" type="email"/>
+        <app-error-message [displayed]="hasError('email', 'required')">L'email est requis</app-error-message>
+        <app-error-message [displayed]="hasError('email', 'email')">Le format email n'est pas respecté</app-error-message>
+
     </label>
     <label> Password :
-        <input  formControlName="password" type="password"/>
+        <input [class.invalid]="isInvalid('password')" formControlName="password" [type]="visible ? 'text' : 'password'"/>
+        <app-error-message [displayed]="hasError('password', 'required')">Le mot de passe est requis</app-error-message>
+        <app-error-message [displayed]="hasError('password', 'minlength')">Le mot de passe doit faire au minimum 6 caractères</app-error-message>
     </label>
+    <button type="button" (click)="visible = !visible">{{visible ? 'Masquer' : 'Voir'}}</button>
     <label> Confirm Password
-        <input [formControl]="confirmPassword" [class.invalid]="isInvalid(confirmPassword)" type="password"/>
-        
+        <input [formControl]="confirmPassword" [class.invalid]="isInvalid(confirmPassword)" [type]="visible ? 'text' : 'password'"/>
         <app-error-message [displayed]="hasError(confirmPassword, 'required')">La confirmation du mot de passe est requise</app-error-message>
-        <app-error-message [displayed]="hasError(confirmPassword, 'minlength')">Le mot de passe doit faire au minimum 6 caractères</app-error-message>
+        <app-error-message [displayed]="hasError(confirmPassword, 'mustmatch')">Les mots de passe ne correspondent pas</app-error-message>
     </label>
     <button>Enregistrer</button>
 </form>

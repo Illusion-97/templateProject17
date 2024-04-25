@@ -2,13 +2,14 @@ import { Component, EventEmitter, Output } from '@angular/core';
 import { MiniPost, MiniPostComponent } from "../mini-post/mini-post.component";
 import { SearchComponent } from "../search/search.component";
 import { TruncatePipe } from '../../pipes/truncate.pipe';
+import { RouterLink } from '@angular/router';
 
 @Component({
     selector: 'app-sidebar',
     standalone: true,
     templateUrl: './sidebar.component.html',
     styleUrl: './sidebar.component.css',
-    imports: [MiniPostComponent, SearchComponent, TruncatePipe]
+    imports: [MiniPostComponent, SearchComponent, TruncatePipe, RouterLink]
 })
 export class SidebarComponent {
     @Output() // Prépare le composant à ENVOYER une information au parent (composant qui apelle celui-ci)
