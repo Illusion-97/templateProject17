@@ -65,9 +65,12 @@
             <a [href]="article.lien" class="image"><img src="assets/images/{{article.src}}" [alt]="article.src" /></a>
             <h3>{{article.titre}}</h3>
             <p>{{article.description}}</p>
-            <ul class="actions">
-              <li><a href="#" class="button">More</a></li>
-            </ul>
+            @if (auth.isLogged) {
+              <ul class="actions">
+                <li><a routerLink="/editor/{{article.id}}" class="button">Edit</a></li>
+                <li><button (click)="delete(article.id)">Delete</button></li>
+              </ul>
+            }
           </article>
         }
       }

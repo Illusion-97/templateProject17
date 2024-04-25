@@ -18,5 +18,5 @@
       <textarea formControlName="description" [class.invalid]="isInvalid('description')" name="description"></textarea>
       <app-error-message [displayed]="hasError('description','required')">La description est requise</app-error-message>
     </label>
-    <button [disabled]="form.invalid">Enregister</button>
+    <button [disabled]="form.invalid">{{form.value.id ? 'Modifier' : 'Créer'}}</button>
   </form>

@@ -10,7 +10,7 @@ import { AbstractService } from '../tools/abstract-service';
 })
 export class ArticleService extends AbstractService<Article> {
 
-  readonly ENDPOINT: string = `${environment.API_URL}/articles`
+  readonly ENDPOINT: string = '/articles'
 
   constructor(http: HttpClient) {
     super(http)

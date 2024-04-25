@@ -3,6 +3,7 @@ import { MiniPost, MiniPostComponent } from "../mini-post/mini-post.component";
 import { SearchComponent } from "../search/search.component";
 import { TruncatePipe } from '../../pipes/truncate.pipe';
 import { RouterLink } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
     selector: 'app-sidebar',
@@ -50,6 +51,10 @@ export class SidebarComponent {
             text: 'Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore aliquam.'
         }
     ]
+
+    constructor(protected service: AuthService) {
+
+    }
 
     askForMore() {
         this.ask.emit("I want More !") // Déclenche effectivement un evenement au travers de l'emitter

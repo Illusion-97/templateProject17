@@ -1,12 +1,19 @@
 {
-  "users": [],
+  "users": [
+    {
+      "email": "admin@dawan.fr",
+      "password": "$2a$10$oxwlxGI5ceGwkMqQA488meP1etuHIEr7yjdOvBrY9atOkX6XmcLIe",
+      "id": 1,
+      "username": "Yanis"
+    }
+  ],
   "articles": [
     {
-      "id": 1,
-      "src": "pic01.jpg",
+      "id": 2,
+      "src": "pic05.jpg",
       "alt": "Halte !",
-      "titre": "Titre ",
-      "description": "Try Meh",
+      "titre": "Nouvel Article",
+      "description": "Another try meh",
       "lien": "Lien"
     }
   ]

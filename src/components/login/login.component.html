@@ -7,7 +7,7 @@
         <input [(ngModel)]="credentials.password" type="password" name="password" required minlength="6" #passInput/>
         <app-error-message [displayed]="!passInput.checkValidity()">Le mot de passe est invalide</app-error-message>
     </label>
-    <input type="checkbox" id="remember"/>
+    <input [(ngModel)]="service.useLocal" type="checkbox" id="remember" name="remember"/>
     <label for="remember">Remember Me</label>
     <br/>
     <button [disabled]="!form.checkValidity()">Connexion</button>

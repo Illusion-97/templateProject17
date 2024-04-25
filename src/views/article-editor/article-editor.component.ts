@@ -1,11 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { AbstractFormComponent } from '../../tools/abstract-form-component';
 import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
 import { ErrorMessageComponent } from '../../components/error-message/error-message.component';
-import { ActivatedRoute, ParamMap, Router } from '@angular/router';
-import { Observable, Subscription, finalize, of, throwError } from 'rxjs';
+import { ActivatedRoute, ActivatedRouteSnapshot, ResolveFn, Router, RouterStateSnapshot } from '@angular/router';
+import { Observable, catchError, finalize, of,throwError } from 'rxjs';
 import { ArticleService } from '../../services/article.service';
 import { subscribeOnce } from '../../tools/ObservableHelper';
+import { Article } from '../../models/article';
 
 @Component({
   selector: 'app-article-editor',
@@ -27,26 +28,30 @@ export class ArticleEditorComponent extends AbstractFormComponent {
 
   constructor(route: ActivatedRoute, private service: ArticleService, private router: Router) {
     super()
-    const paramMap : ParamMap = route.snapshot.paramMap
-    console.log('id', paramMap.get('id'))
-
-    // Un observable permet de suivre les changements sur une donnée
-    const observableParamMap: Observable<ParamMap> = route.paramMap
-    observableParamMap.subscribe({
-      // Récupération d'une nouvelle valeur sans accrocs
-      next: value => console.log('observable id', value.get('id')),
-      // Erreur durant la récupération d'une valeur
-      error: err => console.log("ERROR : ", err),
-      // Fin des appels
-      complete: () => console.log("Observable complété")
+    route.data.subscribe({
+      next: ({article}) => { // data -> data['article'] <=> ({article})
+        if(article) this.form.patchValue(article)
+        else this.form.reset()
+      }
     })
   }
 
   onSubmit$() {
     subscribeOnce(
-      this.service.save(this.form.value), // Observable auquel souscrire une fois
-      { // Comment réagir a cet observable
+      this.form.value.id ? this.service.update(this.form.value) : this.service.save(this.form.value), 
+      {
         next: () => this.router.navigate(['/'])
       })
   }
+}
+
+export const articleResolver: ResolveFn<Observable<Article | undefined>> = (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) => {
+  const router = inject(Router)
+  const id: number = +(route.paramMap.get('id') ?? "0")
+  return id && !isNaN(id) 
+    ? inject(ArticleService).byId(id).pipe(catchError(err => {
+      router.navigate(['/editor/0'])
+      return throwError(() => err)
+    })) 
+    : of(undefined)
 }

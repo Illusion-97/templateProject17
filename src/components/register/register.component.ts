@@ -3,6 +3,8 @@ import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule, Validator
 import { ErrorMessageComponent } from "../error-message/error-message.component";
 import { AbstractFormComponent } from '../../tools/abstract-form-component';
 import { Router } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
+import { subscribeOnce } from '../../tools/ObservableHelper';
 
 @Component({
     selector: 'app-register',
@@ -25,15 +27,13 @@ export class RegisterComponent extends AbstractFormComponent {
   })
 
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private service: AuthService) {
     super()
   }
 
   onSubmit$(): void {
     this.confirmPassword.markAsTouched()
-    if(this.confirmPassword.valid) {
-      console.log("USER", this.form.value)
-      this.router.navigate(['/auth/login'])      
-    }
+    if(this.confirmPassword.valid) 
+      subscribeOnce(this.service.register(this.form.value), () => this.router.navigate(['/auth/login']))
   }
 }
